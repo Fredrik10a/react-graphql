@@ -6,15 +6,17 @@
   "license": "MIT",
   "scripts": {
     "client": "webpack-dev-server --devtool inline-source-map --hot --config webpack.client.config.js",
-    "client:build": "webpack --config webpack.client.build.config.js"
+    "client:build": "webpack --config webpack.client.build.config.js",
+    "stats": "webpack --profile --json --config webpack.client.build.config.js > stats.json",
+    "analyze": "webpack-bundle-analyzer stats.json"
   },
   "dependencies": {
-    "@babel/core": "^7.23.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.23.9",
     "@babel/plugin-transform-react-jsx": "^7.23.4",
     "@babel/preset-env": "^7.23.9",
     "@babel/preset-react": "^7.23.3",
