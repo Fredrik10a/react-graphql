@@ -2,27 +2,27 @@
     "env": {
         "browser": true,
         "es2021": true,
-        "node": true
+        "node": true,
     },
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:react-hooks/recommended",
         "plugin:jsx-a11y/recommended",
-        "prettier"
+        "prettier",
     ],
     "parserOptions": {
         "ecmaFeatures": {
-            "jsx": true
+            "jsx": true,
         },
         "ecmaVersion": 12,
-        "sourceType": "module"
+        "sourceType": "module",
     },
     "plugins": ["react", "react-hooks", "jsx-a11y", "prettier"],
     "settings": {
         "react": {
-            "version": "detect"
-        }
+            "version": "detect",
+        },
     },
     "rules": {
         "no-console": "error",
@@ -39,9 +39,9 @@
                 "arrowParens": "avoid",
                 "tabWidth": 4,
                 "endOfLine": "auto",
-                "printWidth": 100
-            }
-        ]
+                "printWidth": 100,
+            },
+        ],
     },
-    "ignorePatterns": ["!**/src"]
+    "ignorePatterns": ["node_modules/", "public/", "build/", "*.config.js"],
 }
