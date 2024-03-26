@@ -2,33 +2,35 @@
     "env": {
         "browser": true,
         "es2021": true,
-        "node": true,
+        "node": true
     },
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:react-hooks/recommended",
         "plugin:jsx-a11y/recommended",
-        "prettier",
+        "prettier"
     ],
     "parserOptions": {
         "ecmaFeatures": {
-            "jsx": true,
+            "jsx": true
         },
         "ecmaVersion": 12,
-        "sourceType": "module",
+        "sourceType": "module"
     },
     "plugins": ["react", "react-hooks", "jsx-a11y", "prettier"],
     "settings": {
         "react": {
             "version": "detect",
+            "runtime": "automatic"
         },
     },
     "rules": {
-        "no-console": "error",
+        "react/prop-types": "off",
+        "react/jsx-closing-tag-location": "off",
         "quotes": ["error", "single", { "allowTemplateLiterals": true, "avoidEscape": true }],
         "indent": ["error", 4, { "SwitchCase": 1 }],
-        "arrow-parens": ["error", "as-needed"],
+        "arrow-parens": ["error", "always"],
         "prettier/prettier": [
             "error",
             {
@@ -36,12 +38,11 @@
                 "singleQuote": true,
                 "trailingComma": "es5",
                 "bracketSpacing": true,
-                "arrowParens": "avoid",
+                "arrowParens": "always",
                 "tabWidth": 4,
                 "endOfLine": "auto",
-                "printWidth": 100,
+                "printWidth": 100
             },
         ],
     },
-    "ignorePatterns": ["node_modules/", "public/", "build/", "*.config.js"],
 }

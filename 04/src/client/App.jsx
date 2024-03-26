@@ -1,83 +1,18 @@
-import { useState } from "react";
-import { Helmet } from "react-helmet";
-import "../assets/style.css";
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import Feed from './feed/Feed';
+import Chats from './chat/Chats';
+import '../assets/style.css';
 
-const initialPosts = [
-  {
-    id: 2,
-    text: "Lorem ipsum",
-    user: {
-      avatar: "/uploads/avatar1.png",
-      username: "Test User",
-    },
-  },
-  {
-    id: 1,
-    text: "Lorem ipsum",
-    user: {
-      avatar: "/uploads/avatar2.png",
-      username: "Test User 2",
-    },
-  },
-];
-
-const App = () => {
-  const [posts, setPosts] = useState(initialPosts);
-  const [postContent, setPostContent] = useState("");
-
-  const handlePostContentChange = (event) => {
-    setPostContent(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const newPost = {
-      id: posts.length + 1,
-      text: postContent,
-      user: {
-        avatar: "/uploads/avatar3.png",
-        username: "Fake User",
-      },
-    };
-    setPosts([newPost, ...posts]);
-    setPostContent("");
-  };
-
-  return (
+const App = () => (
     <div className="container">
-      <Helmet>
-        <title>Graphbook - Feed</title>
-        <meta
-          name="description"
-          content="Newsfeed of all your friends on Graphbook"
-        />
-      </Helmet>
-      <div className="postForm">
-        <form onSubmit={handleSubmit}>
-          <textarea
-            value={postContent}
-            onChange={handlePostContentChange}
-            placeholder="Write your custom post!"
-          />
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
-      <div className="feed">
-        {posts.map((post) => (
-          <div key={post.id} className="post">
-            <div className="header">
-              <img
-                alt={`${post.user.username}'s avatar`}
-                src={post.user.avatar}
-              />
-              <h2>{post.user.username}</h2>
-            </div>
-            <p className="content">{post.text}</p>
-          </div>
-        ))}
-      </div>
+        <Helmet>
+            <title>Graphbook - Feed</title>
+            <meta name="description" content="Newsfeed of all your friends on Graphbook" />
+        </Helmet>
+        <Feed />
+        <Chats />
     </div>
-  );
-};
+);
 
 export default App;

@@ -8,14 +8,7 @@ const config = configFile[env];
 mongoose
     .connect(config.mongoURI, {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
     })
     .then(() => console.log('MongoDB connection has been established successfully.'))
     .catch((err) => console.error('MongoDB connection error:', err));
-
-const db = {
-    models: require('../models')(mongoose),
-    mongoose
-};
-
-export default db;
