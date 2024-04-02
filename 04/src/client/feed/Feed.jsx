@@ -40,7 +40,9 @@ const Feed = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        await addPost({ variables: { post: { text: postContent } } });
+        if (postContent !== '') {
+            await addPost({ variables: { post: { text: postContent } } });
+        }
         setPostContent('');
     };
 
@@ -73,7 +75,7 @@ const Feed = () => {
                         <div key={post.id} className={`post ${post.id < 0 ? 'optimistic' : ''}`}>
                             <div className="header">
                                 <img
-                                    src={post.user.avatar}
+                                    src={`${process.env.REACT_APP_BACKEND_URL}${post.user.avatar}`}
                                     alt={`${post.user.username}"s avatar`}
                                 />
                                 <h2>{post.user.username}</h2>

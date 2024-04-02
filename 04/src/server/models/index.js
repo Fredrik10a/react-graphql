@@ -1,13 +1,6 @@
-const User = require('./User');
-const Post = require('./Post');
-const Chat = require('./Chat');
-const Message = require('./Message');
+import User from './user.js';
+import Post from './post.js';
+import Chat from './chat.js';
+import Message from './message.js';
 
-const dbModels = {
-    User,
-    Post,
-    Chat,
-    Message,
-};
-
-module.exports = dbModels;
+export { User, Post, Chat, Message };

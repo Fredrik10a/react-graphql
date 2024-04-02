@@ -1,4 +1,4 @@
-const { Post } = require('../../models');
+import { Post } from '../../models/index.js';
 
 const postResolvers = {
     Query: {
@@ -60,4 +60,4 @@ const postResolvers = {
     },
 };
 
-module.exports = postResolvers;
+export default postResolvers;

@@ -1,6 +1,6 @@
-const { gql } = require('apollo-server-express');
+import { gql } from 'apollo-server-express';
 
-const chatTypeDefs = gql`
+const chat = gql`
     type Message {
         id: ID
         text: String
@@ -34,4 +34,4 @@ const chatTypeDefs = gql`
     }
 `;
 
-module.exports = chatTypeDefs;
+export default chat;

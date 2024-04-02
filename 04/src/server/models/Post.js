@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const postSchema = new Schema(
     {
-        // Letting MongoDB create the id, don't need to explicitly define it
+        // MongoDB automatically creates the _id field
         text: {
             type: String,
             required: true,
@@ -15,7 +15,7 @@ const postSchema = new Schema(
             required: true,
         },
     },
-    { timestamps: true }
+    { timestamps: true } // Automatically add createdAt and updatedAt timestamps
 );
 
-module.exports = mongoose.model('Post', postSchema);
+export default mongoose.model('Post', postSchema);

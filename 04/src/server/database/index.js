@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import configFile from '../config/';
+import configFile from './config/index.js';
 
 const env = process.env.NODE_ENV || 'development';
 const config = configFile[env];

@@ -1,7 +1,7 @@
-const _ = require('lodash');
+import _ from 'lodash';
 
 const combineResolvers = (resolversArray) => {
     return _.merge({}, ...resolversArray);
 };
 
-module.exports = combineResolvers;
+export default combineResolvers;

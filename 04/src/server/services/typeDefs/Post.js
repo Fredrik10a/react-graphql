@@ -1,6 +1,6 @@
-const { gql } = require('apollo-server-express');
+import { gql } from 'apollo-server-express';
 
-const postTypeDefs = gql`
+const post = gql`
     type Post {
         id: ID
         text: String
@@ -25,4 +25,4 @@ const postTypeDefs = gql`
     }
 `;
 
-module.exports = postTypeDefs;
+export default post;

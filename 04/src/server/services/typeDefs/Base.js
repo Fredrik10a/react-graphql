@@ -1,6 +1,6 @@
-const { gql } = require('apollo-server-express');
+import { gql } from 'apollo-server-express';
 
-const baseTypeDefs = gql`
+const base = gql`
     type Query {
         _base: String
     }
@@ -10,4 +10,4 @@ const baseTypeDefs = gql`
     }
 `;
 
-module.exports = baseTypeDefs;
+export default base;

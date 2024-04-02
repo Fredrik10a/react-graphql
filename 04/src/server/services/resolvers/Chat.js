@@ -1,4 +1,4 @@
-const { Chat } = require('../../models');
+import { Chat } from '../../models';
 
 const chatResolvers = {
     Query: {
@@ -20,6 +20,24 @@ const chatResolvers = {
             }
         },
     },
+    Mutation: {
+        async addChat(root, { chat }) {
+            try {
+                const newChat = new Chat({
+                    ...chat,
+                });
+
+                await newChat.save();
+
+                const populated = await Chat.findById(newChat._id).exec();
+
+                return populated;
+            } catch (error) {
+                console.error('Error in mutation:', error);
+                throw new Error('Failed to execute mutation');
+            }
+        },
+    },
 };
 
-module.exports = chatResolvers;
+export default chatResolvers;

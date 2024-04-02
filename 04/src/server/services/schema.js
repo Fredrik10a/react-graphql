@@ -1,8 +1,8 @@
-const baseTypeDefs = require('./typeDefs/Base');
-const userTypeDefs = require('./typeDefs/User');
-const postTypeDefs = require('./typeDefs/Post');
-const chatTypeDefs = require('./typeDefs/Chat');
+import base from './typeDefs/base.js';
+import user from './typeDefs/user.js';
+import post from './typeDefs/post.js';
+import chat from './typeDefs/chat.js';
 
-const typeDefs = [baseTypeDefs, userTypeDefs, postTypeDefs, chatTypeDefs];
+const typeDefs = [base, user, post, chat];
 
-module.exports = typeDefs;
+export default typeDefs;
