@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
+        index: true, // Add an index on the username field
     },
 });
 

@@ -5,10 +5,7 @@ const postResolvers = {
         async Posts() {
             // Assuming a 'user' field in Post schema stores the ObjectId reference to a User document
             try {
-                const posts = await Post.find()
-                    .populate('user', 'username avatar')
-                    .sort({ createdAt: -1 })
-                    .exec();
+                const posts = await Post.find().populate('user', 'username avatar').sort({ createdAt: -1 }).exec();
                 return posts;
             } catch (error) {
                 console.error('Error fetching posts:', error);
@@ -22,12 +19,7 @@ const postResolvers = {
             }
 
             try {
-                const posts = await Post.find()
-                    .populate('user', 'username avatar')
-                    .sort({ createdAt: -1 })
-                    .skip(skip)
-                    .limit(limit)
-                    .exec();
+                const posts = await Post.find().populate('user', 'username avatar').sort({ createdAt: -1 }).skip(skip).limit(limit).exec();
                 return {
                     posts,
                 };
@@ -47,9 +39,7 @@ const postResolvers = {
 
                 await newPost.save();
 
-                const populatedPost = await Post.findById(newPost._id)
-                    .populate('user', 'username avatar')
-                    .exec();
+                const populatedPost = await Post.findById(newPost._id).populate('user', 'username avatar').exec();
 
                 return populatedPost;
             } catch (error) {

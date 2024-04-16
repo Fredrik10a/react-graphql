@@ -6,6 +6,10 @@ const user = gql`
         avatar: String
         username: String
     }
+
+    extend type Query {
+        users: [User]
+    }
 `;
 
 export default user;

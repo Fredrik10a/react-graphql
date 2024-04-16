@@ -1,8 +1,8 @@
-import { Chat } from '../../models';
+import { Chat } from '../../models/index.js';
 
 const chatResolvers = {
     Query: {
-        async Chats() {
+        async chats() {
             try {
                 const chats = await Chat.find()
                     .populate({
@@ -29,7 +29,7 @@ const chatResolvers = {
 
                 await newChat.save();
 
-                const populated = await Chat.findById(newChat._id).exec();
+                const populated = await Chat.findById(newChat._id).populate('users').populate('messages').populate('lastMessage').exec();
 
                 return populated;
             } catch (error) {

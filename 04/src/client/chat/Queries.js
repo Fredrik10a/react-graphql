@@ -47,3 +47,25 @@ export const ADD_MESSAGE = gql`
         }
     }
 `;
+
+export const ADD_CHAT = gql`
+    mutation addChat($chat: ChatInput!) {
+        addChat(chat: $chat) {
+            id
+            users {
+                id
+                username
+            }
+        }
+    }
+`;
+
+export const GET_USERS = gql`
+    query users {
+        users {
+            id
+            avatar
+            username
+        }
+    }
+`;

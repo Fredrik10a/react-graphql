@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import BaseSchema from './base.js';
 
 const chatSchema = new mongoose.Schema(
     {
@@ -22,4 +23,8 @@ const chatSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-export default mongoose.model('Chat', chatSchema);
+// Merge the BaseSchema into chatSchema
+chatSchema.add(BaseSchema);
+
+const Chat = mongoose.model('Chat', chatSchema);
+export default Chat;

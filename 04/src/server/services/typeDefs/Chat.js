@@ -1,4 +1,5 @@
 import { gql } from 'apollo-server-express';
+import './user.js';
 
 const chat = gql`
     type Message {
@@ -9,19 +10,21 @@ const chat = gql`
     }
 
     type Chat {
-        id: ID
+        id: ID!
         messages: [Message]
         users: [User]
         lastMessage: Message
     }
 
     input ChatInput {
-        users: [Int]
+        users: [ID]
+        lastMessage: ID
+        messages: [ID]
     }
 
     input MessageInput {
         text: String!
-        chatId: Int!
+        chatId: ID!
     }
 
     extend type Mutation {
@@ -30,7 +33,7 @@ const chat = gql`
 
     extend type Query {
         chats: [Chat]
-        chat(chatId: Int): Chat
+        chat(chatId: ID): Chat
     }
 `;
 
