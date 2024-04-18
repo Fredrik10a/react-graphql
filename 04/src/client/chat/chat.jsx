@@ -47,6 +47,13 @@ const Chats = () => {
     if (!chatsData.chats) return <p>No chats...</p>;
 
     // ChatWindow component for each open chat
+    /**
+                    {data.chat.messages.map((message) => (
+                        <div key={message.id} className="message">
+                            {message.text}
+                        </div>
+                    ))}
+                    */
     const ChatWindow = ({ chatId }) => {
         const { data, loading, error } = useQuery(GET_CHAT, {
             variables: { chatId },
@@ -60,11 +67,7 @@ const Chats = () => {
             <div className="chatWindow">
                 <div className="header">{data.chat.users.map((u) => u.username).join(', ')}</div>
                 <div className="messages">
-                    {data.chat.messages.map((message) => (
-                        <div key={message.id} className="message">
-                            {message.text}
-                        </div>
-                    ))}
+                    <p>HEJ</p>
                 </div>
                 <input
                     type="text"

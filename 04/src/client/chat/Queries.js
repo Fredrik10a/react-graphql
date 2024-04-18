@@ -17,20 +17,16 @@ export const GET_CHATS = gql`
 `;
 
 export const GET_CHAT = gql`
-    query chat($chatId: Int!) {
+    query chat($chatId: ID!) {
         chat(chatId: $chatId) {
             id
             users {
                 id
-                avatar
                 username
             }
             messages {
                 id
                 text
-                user {
-                    id
-                }
             }
         }
     }

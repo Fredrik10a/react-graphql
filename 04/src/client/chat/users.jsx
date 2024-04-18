@@ -1,8 +1,7 @@
 import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 
-import { GET_USERS } from './user/queries.js';
-import { ADD_CHAT } from './queries.js';
+import { ADD_CHAT, GET_USERS } from './queries.js';
 
 const Users = () => {
     const [addChat] = useMutation(ADD_CHAT);

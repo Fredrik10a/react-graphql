@@ -9,11 +9,19 @@ const chatResolvers = {
                         path: 'users',
                         select: 'username avatar',
                     })
-                    .populate('messages')
-                    .populate('lastMessage')
                     .sort({ createdAt: -1 })
                     .exec();
                 return chats;
+            } catch (error) {
+                console.error('Error fetching chats:', error);
+                throw new Error('Failed to fetch chats');
+            }
+        },
+        async chat(root, { chatId }) {
+            try {
+                let chat = await Chat.findById(chatId).populate('users').exec();
+                chat._id = chat._id.toString();
+                return chat;
             } catch (error) {
                 console.error('Error fetching chats:', error);
                 throw new Error('Failed to fetch chats');
