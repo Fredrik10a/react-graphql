@@ -31,12 +31,24 @@ const chatResolvers = {
     Mutation: {
         async addChat(root, { chat }) {
             try {
+                // Check if there is an existing chat with the same users
+                const existingChat = await Chat.findOne({ users: { $all: [chat.users[0], chat.users[1]] } })
+                    .populate('users')
+                    .populate('messages')
+                    .populate('lastMessage')
+                    .exec();
+
+                // If the chat exists, return the existing chat
+                if (existingChat) {
+                    return existingChat;
+                }
+
+                // If no chat exists, create a new one
                 const newChat = new Chat({
                     ...chat,
                 });
 
                 await newChat.save();
-
                 const populated = await Chat.findById(newChat._id).populate('users').populate('messages').populate('lastMessage').exec();
 
                 return populated;

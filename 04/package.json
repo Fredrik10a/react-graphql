@@ -5,7 +5,7 @@
   "license": "",
   "type": "module",
   "scripts": {
-    "lint": "eslint src/**/*.{js,jsx,ts,tsx} --format compact",
+    "lint": "eslint src/**/*.{js,jsx} --format compact",
     "client": "webpack-dev-server --devtool inline-source-map --hot --config webpack.client.config.js",
     "client:build": "webpack --config webpack.client.build.config.js",
     "server": "nodemon --exec babel-node --plugins require-context-hook --watch src/server src/server/index.js",

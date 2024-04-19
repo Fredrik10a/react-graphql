@@ -15,7 +15,7 @@ const Users = () => {
             await addChat({
                 variables: {
                     chat: {
-                        users: [userId, userId],
+                        users: ['65f21051f15bdcc363a49e40', userId],
                     },
                 },
             });
