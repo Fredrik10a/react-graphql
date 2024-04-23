@@ -18,9 +18,10 @@ import typeDefs from './services/schema.js';
 import postResolvers from './services/resolvers/post.js';
 import chatResolvers from './services/resolvers/chat.js';
 import userResolvers from './services/resolvers/user.js';
+import messageResolvers from './services/resolvers/message.js';
 import combineResolvers from './services/resolvers.js';
 
-const resolvers = combineResolvers([postResolvers, chatResolvers, userResolvers]);
+const resolvers = combineResolvers([postResolvers, chatResolvers, userResolvers, messageResolvers]);
 
 // Initialize the Express app
 const app = express();

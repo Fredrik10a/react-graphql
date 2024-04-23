@@ -13,27 +13,27 @@ const chat = gql`
         id: ID!
         messages: [Message]
         users: [User]
-        lastMessage: Message
     }
 
     input ChatInput {
         users: [ID]
-        lastMessage: ID
         messages: [ID]
     }
 
     input MessageInput {
         text: String!
-        chatId: ID!
+        chat: ID!
+        user: ID!
     }
 
     extend type Mutation {
         addChat(chat: ChatInput!): Chat
+        addMessage(message: MessageInput!): Message
     }
 
     extend type Query {
         chats: [Chat]
-        chat(chatId: ID): Chat
+        chat(id: ID): Chat
     }
 `;
 

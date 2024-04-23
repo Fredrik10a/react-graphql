@@ -9,6 +9,13 @@ const chatResolvers = {
                         path: 'users',
                         select: 'username avatar',
                     })
+                    .populate({
+                        path: 'messages',
+                        options: {
+                            sort: { createdAt: -1 },
+                            limit: 1,
+                        },
+                    })
                     .sort({ createdAt: -1 })
                     .exec();
                 return chats;
@@ -17,9 +24,9 @@ const chatResolvers = {
                 throw new Error('Failed to fetch chats');
             }
         },
-        async chat(root, { chatId }) {
+        async chat(root, { id }) {
             try {
-                let chat = await Chat.findById(chatId).populate('users').exec();
+                let chat = await Chat.findById(id).populate('users').populate('messages').exec();
                 chat._id = chat._id.toString();
                 return chat;
             } catch (error) {
@@ -35,7 +42,6 @@ const chatResolvers = {
                 const existingChat = await Chat.findOne({ users: { $all: [chat.users[0], chat.users[1]] } })
                     .populate('users')
                     .populate('messages')
-                    .populate('lastMessage')
                     .exec();
 
                 // If the chat exists, return the existing chat
@@ -49,7 +55,7 @@ const chatResolvers = {
                 });
 
                 await newChat.save();
-                const populated = await Chat.findById(newChat._id).populate('users').populate('messages').populate('lastMessage').exec();
+                const populated = await Chat.findById(newChat._id).populate('users').populate('messages').exec();
 
                 return populated;
             } catch (error) {

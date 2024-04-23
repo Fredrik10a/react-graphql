@@ -7,7 +7,6 @@ import { ADD_CHAT, GET_USERS } from './queries.js';
 const Chats = () => {
     const [addChat] = useMutation(ADD_CHAT);
     const [openChats, setOpenChats] = useState([]);
-    const [textInputs, setTextInputs] = useState({});
 
     // Function to handle opening a chat
     const openChat = (id) => {
@@ -17,35 +16,14 @@ const Chats = () => {
                 updatedOpenChats.shift(); // Remove the oldest chat if more than 2 are open
             }
             updatedOpenChats.push(id);
-            setTextInputs({ ...textInputs, [id]: '' }); // Prepare text input for new chat
         }
         setOpenChats(updatedOpenChats);
-    };
-
-    // Function to handle text input changes
-    const onChangeChatInput = (event, id) => {
-        setTextInputs({ ...textInputs, [id]: event.target.value });
     };
 
     // Close chat window
     const closeChatWindow = (id) => {
         const updatedOpenChats = openChats.filter((chatId) => chatId !== id);
         setOpenChats(updatedOpenChats);
-    };
-
-    // Function to handle sending a message
-    const handleKeyPress = async (event, id, addMessage) => {
-        if (event.key === 'Enter' && textInputs[id].trim() !== '') {
-            await addMessage({
-                variables: {
-                    message: {
-                        chatId: id,
-                        text: textInputs[id],
-                    },
-                },
-            });
-            setTextInputs({ ...textInputs, [id]: '' }); // Clear input after sending
-        }
     };
 
     // Fetching the list of chats
@@ -56,10 +34,53 @@ const Chats = () => {
 
     // ChatWindow component for each open chat
     const ChatWindow = ({ chatId }) => {
+        const [textInputs, setTextInputs] = useState({});
         const { data, loading, error } = useQuery(GET_CHAT, {
-            variables: { chatId },
+            variables: { id: chatId },
         });
-        const [addMessage] = useMutation(ADD_MESSAGE);
+
+        // Function to handle text input changes
+        const onChangeChatInput = (event, id) => {
+            setTextInputs({ ...textInputs, [id]: event.target.value });
+        };
+
+        // Function to handle sending a message
+        const handleKeyPress = async (event, userId, chatId, addMessage) => {
+            if (event.key === 'Enter' && textInputs[chatId].trim() !== '') {
+                await addMessage({
+                    variables: {
+                        message: {
+                            text: textInputs[chatId],
+                            chat: chatId,
+                            user: userId,
+                        },
+                    },
+                });
+                setTextInputs({ ...textInputs, [chatId]: '' }); // Clear input after sending
+            }
+        };
+
+        const [addMessage] = useMutation(ADD_MESSAGE, {
+            update(cache, { data: { addMessage } }) {
+                const chatId = addMessage.chat.id;
+                const existingChat = cache.readQuery({
+                    query: GET_CHAT,
+                    variables: { id: chatId },
+                });
+
+                if (existingChat && existingChat.chat) {
+                    const updatedChat = {
+                        ...existingChat.chat,
+                        messages: [...existingChat.chat.messages, addMessage],
+                    };
+                    cache.writeQuery({
+                        query: GET_CHAT,
+                        variables: { id: chatId },
+                        data: { chat: updatedChat },
+                    });
+                }
+            },
+        });
 
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Error! {error.message}</p>;
@@ -81,7 +102,7 @@ const Chats = () => {
                     type="text"
                     value={textInputs[chatId] || ''}
                     onChange={(e) => onChangeChatInput(e, chatId)}
-                    onKeyPress={(e) => handleKeyPress(e, chatId, addMessage)}
+                    onKeyPress={(e) => handleKeyPress(e, '65f21051f15bdcc363a49e40', chatId, addMessage)}
                 />
             </div>
         );
@@ -144,9 +165,17 @@ const Chats = () => {
                         tabIndex="0" // Make the div focusable
                         style={{ cursor: 'pointer' }} // Visual cue for interactivity
                     >
-                        {chat.users[1].username}
-                        {/* Render each chat summary here */}
-                        {/*  Chat: {chat.lastMessage.text} */}
+                        <div className="header" style={{ display: 'flex', alignItems: 'center' }}>
+                            <img
+                                style={{ maxHeight: '50px' }}
+                                src={`${process.env.REACT_APP_BACKEND_URL}${chat.users[1].avatar}`}
+                                alt={`${chat.users[1]}"s avatar`}
+                            />
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <div>{chat.users[1].username}</div>
+                                <div style={{ fontSize: '0.8em', opacity: 0.7 }}>{chat.messages[0]?.text}</div>
+                            </div>
+                        </div>
                     </div>
                 ))}
             </div>

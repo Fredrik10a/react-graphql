@@ -9,7 +9,8 @@ export const GET_CHATS = gql`
                 avatar
                 username
             }
-            lastMessage {
+            messages {
+                id
                 text
             }
         }
@@ -17,8 +18,8 @@ export const GET_CHATS = gql`
 `;
 
 export const GET_CHAT = gql`
-    query chat($chatId: ID!) {
-        chat(chatId: $chatId) {
+    query chat($id: ID!) {
+        chat(id: $id) {
             id
             users {
                 id
@@ -38,6 +39,9 @@ export const ADD_MESSAGE = gql`
             id
             text
             user {
+                id
+            }
+            chat {
                 id
             }
         }
