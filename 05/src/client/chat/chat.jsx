@@ -8,8 +8,9 @@ import { ADD_CHAT, GET_USERS } from './queries.js';
 const Chats = () => {
     const [addChat] = useMutation(ADD_CHAT);
     const [openChats, setOpenChats] = useState([]);
+    // Fetching the users
     const { loading: usersLoading, error: usersError, data: usersData } = useQuery(GET_USERS);
-    // Fetching the list of chats
+    // Fetching defined chats
     const {
         loading: chatsLoading,
         error: chatsError,
@@ -41,8 +42,8 @@ const Chats = () => {
 
     if (usersLoading || chatsLoading) return <Loading />;
     if (usersError) return <p>Error: {usersError.message}</p>;
-    if (!usersData.users) return <p>No users...</p>;
     if (chatsError) return <p>Error: {chatsError.message}</p>;
+    if (!usersData.users) return <p>No users...</p>;
     if (!chatsData.chats) return <p>No chats...</p>;
 
     // Function to handle opening a chat
