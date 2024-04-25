@@ -51,6 +51,7 @@ const Chats = () => {
         if (!updatedOpenChats.includes(id)) {
             if (updatedOpenChats.length > 2) {
                 updatedOpenChats.shift(); // Remove the oldest chat if more than 2 are open
+                refetchChats();
             }
             updatedOpenChats.push(id);
         }
