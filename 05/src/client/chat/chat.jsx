@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import React, { useState } from 'react';
+import { useQuery } from '@apollo/client';
+import ChatWindow from '@client/components/chat/chatwindow';
+import Users from '@client/components/chat/users';
 import Loading from '@client/components/loader';
-
-import { ADD_MESSAGE, GET_CHAT, GET_CHATS } from './queries';
-import { ADD_CHAT, GET_USERS } from './queries.js';
+import { GET_CHATS } from '@client/components/chat/queries';
 
 const Chats = () => {
-    const [addChat] = useMutation(ADD_CHAT);
     const [openChats, setOpenChats] = useState([]);
-    // Fetching the users
-    const { loading: usersLoading, error: usersError, data: usersData } = useQuery(GET_USERS);
+    const [users, setUsers] = useState([]);
+
+    const handleUsersLoaded = (loadedUsers) => {
+        setUsers(loadedUsers);
+    };
+
     // Fetching defined chats
     const {
         loading: chatsLoading,
@@ -17,34 +20,12 @@ const Chats = () => {
         data: chatsData,
         refetch: refetchChats,
     } = useQuery(GET_CHATS, {
-        skip: !usersData || !usersData.users, // Skip fetching chatsData until usersData is fully loaded
+        skip: users.length === 0, // Skip fetching chatsData until usersData is fully loaded
     });
 
-    useEffect(() => {
-        const initUsers = async () => {
-            if (usersLoading) return;
-            try {
-                for (const user of usersData.users) {
-                    await addChat({
-                        variables: {
-                            chat: {
-                                users: ['65f21051f15bdcc363a49e40', user.id],
-                            },
-                        },
-                    });
-                }
-            } catch (error) {
-                console.error('Error creating chat:', error);
-            }
-        };
-        initUsers();
-    }, [usersData]);
-
-    if (usersLoading || chatsLoading) return <Loading />;
-    if (usersError) return <p>Error: {usersError.message}</p>;
+    if (users.length === 0) return <Users onUsersLoaded={handleUsersLoaded} />;
+    if (chatsLoading) return <Loading />;
     if (chatsError) return <p>Error: {chatsError.message}</p>;
-    if (!usersData.users) return <p>No users...</p>;
-    if (!chatsData.chats) return <p>No chats...</p>;
 
     // Function to handle opening a chat
     const openChat = (id) => {
@@ -59,86 +40,8 @@ const Chats = () => {
         setOpenChats(updatedOpenChats);
     };
 
-    // Close chat window
     const closeChatWindow = (id) => {
-        refetchChats();
-        const updatedOpenChats = openChats.filter((chatId) => chatId !== id);
-        setOpenChats(updatedOpenChats);
-    };
-
-    // ChatWindow component for each open chat
-    const ChatWindow = ({ chatId }) => {
-        const [textInputs, setTextInputs] = useState({});
-        const { data, loading, error } = useQuery(GET_CHAT, {
-            variables: { id: chatId },
-        });
-
-        // Function to handle text input changes
-        const onChangeChatInput = (event, id) => {
-            setTextInputs({ ...textInputs, [id]: event.target.value });
-        };
-
-        // Function to handle sending a message
-        const handleKeyPress = async (event, userId, chatId, addMessage) => {
-            if (event.key === 'Enter' && textInputs[chatId].trim() !== '') {
-                await addMessage({
-                    variables: {
-                        message: {
-                            text: textInputs[chatId],
-                            chat: chatId,
-                            user: userId,
-                        },
-                    },
-                });
-                setTextInputs({ ...textInputs, [chatId]: '' }); // Clear input after sending
-            }
-        };
-
-        const [addMessage] = useMutation(ADD_MESSAGE, {
-            update(cache, { data: { addMessage } }) {
-                const chatId = addMessage.chat.id;
-                const existingChat = cache.readQuery({
-                    query: GET_CHAT,
-                    variables: { id: chatId },
-                });
-                if (existingChat && existingChat.chat) {
-                    const updatedChat = {
-                        ...existingChat.chat,
-                        messages: [...existingChat.chat.messages, addMessage],
-                    };
-                    cache.writeQuery({
-                        query: GET_CHAT,
-                        variables: { id: chatId },
-                        data: { chat: updatedChat },
-                    });
-                }
-            },
-        });
-
-        if (loading) return <Loading />;
-        if (error) return <p>Error! {error.message}</p>;
-
-        return (
-            <div className="chatWindow">
-                <div className="header">
-                    {data.chat.users.map((u) => u.username).join(', ')}
-                    <button onClick={() => closeChatWindow(chatId)}>X</button>
-                </div>
-                <div className="messages">
-                    {data.chat.messages.map((message) => (
-                        <div key={message.id} className="message">
-                            {message.text}
-                        </div>
-                    ))}
-                </div>
-                <input
-                    type="text"
-                    value={textInputs[chatId] || ''}
-                    onChange={(e) => onChangeChatInput(e, chatId)}
-                    onKeyPress={(e) => handleKeyPress(e, '65f21051f15bdcc363a49e40', chatId, addMessage)}
-                />
-            </div>
-        );
+        setOpenChats(openChats.filter((chatId) => chatId !== id));
     };
 
     return (
@@ -158,7 +61,7 @@ const Chats = () => {
                             <img
                                 style={{ maxHeight: '50px' }}
                                 src={`${process.env.REACT_APP_BACKEND_URL}${chat.users[1].avatar}`}
-                                alt={`${chat.users[1]}"s avatar`}
+                                alt={`${chat.users[1].username}'s avatar`}
                             />
                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                 <div>{chat.users[1].username}</div>
@@ -170,7 +73,7 @@ const Chats = () => {
             </div>
             <div className="openChats">
                 {openChats.map((chatId) => (
-                    <ChatWindow key={chatId} chatId={chatId} />
+                    <ChatWindow key={chatId} chatId={chatId} closeChatWindow={closeChatWindow} />
                 ))}
             </div>
         </div>
