@@ -47,6 +47,15 @@ const postResolvers = {
                 throw new Error('Failed to execute mutation');
             }
         },
+        async deletePost(root, { postId }) {
+            try {
+                const post = await Post.findByIdAndDelete(postId).exec();
+                return post ? true : false;
+            } catch (error) {
+                console.error('Error in mutation:', error);
+                throw new Error('Failed to execute mutation');
+            }
+        },
     },
 };
 

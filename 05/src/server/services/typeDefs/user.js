@@ -7,8 +7,13 @@ const user = gql`
         username: String
     }
 
+    type UserSearch {
+        users: [User]
+    }
+
     extend type Query {
         users: [User]
+        userSearch(page: Int, limit: Int, text: String): UserSearch
     }
 `;
 

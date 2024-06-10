@@ -17,6 +17,11 @@
   "dependencies": {
     "@apollo/client": "^3.9.6",
     "@babel/node": "^7.23.9",
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "@fortawesome/free-brands-svg-icons": "^6.5.2",
+    "@fortawesome/free-regular-svg-icons": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "apollo-server-express": "^3.13.0",
     "cors": "^2.8.5",
     "diagnose-endpoint": "^1.1.0",

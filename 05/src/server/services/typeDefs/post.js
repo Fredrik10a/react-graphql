@@ -22,6 +22,7 @@ const post = gql`
 
     extend type Mutation {
         addPost(post: PostInput!): Post
+        deletePost(postId: ID!): Boolean
     }
 `;
 

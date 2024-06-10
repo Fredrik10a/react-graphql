@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ADD_MESSAGE, GET_CHAT } from './queries';
 import { useQuery, useMutation } from '@apollo/client';
 import Loading from '@client/components/loader';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const ChatWindow = ({ chatId, closeChatWindow }) => {
     const [textInputs, setTextInputs] = useState({});
@@ -58,7 +59,7 @@ const ChatWindow = ({ chatId, closeChatWindow }) => {
         <div className="chatWindow">
             <div className="header">
                 {data.chat.users.map((u) => u.username).join(', ')}
-                <button onClick={() => closeChatWindow(chatId)}>X</button>
+                <button onClick={() => closeChatWindow(chatId)}>{<FontAwesomeIcon icon="fa-window-close" />}</button>
             </div>
             <div className="messages">
                 {data.chat.messages.map((message) => (

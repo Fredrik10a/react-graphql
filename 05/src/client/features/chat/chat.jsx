@@ -45,7 +45,7 @@ const Chats = () => {
     };
 
     return (
-        <div className="wrapper">
+        <>
             <div className="chats">
                 {chatsData.chats.map((chat) => (
                     // Use a button for interactive elements, or add role and tabIndex if it must be a div
@@ -76,7 +76,7 @@ const Chats = () => {
                     <ChatWindow key={chatId} chatId={chatId} closeChatWindow={closeChatWindow} />
                 ))}
             </div>
-        </div>
+        </>
     );
 };
 

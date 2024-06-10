@@ -3,11 +3,15 @@ import PostForm from '@client/components/post/form';
 import FeedList from '@client/components/post/feedlist';
 
 const Feed = () => {
+    const changeState = (event) => {
+        event.preventDefault();
+    };
+
     return (
-        <div className="container">
+        <>
             <PostForm />
-            <FeedList />
-        </div>
+            <FeedList changeState={changeState} />
+        </>
     );
 };
 
