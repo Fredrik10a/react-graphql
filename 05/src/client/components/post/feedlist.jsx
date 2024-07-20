@@ -4,11 +4,8 @@ import Loading from '@client/components/loader';
 import Error from '@client/components/error';
 import Dropdown from '@client/components/dropdown';
 import InfiniteScroll from 'react-infinite-scroller';
-
 import DeletePostMutation from './deletePostMutation';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { GET_POSTS } from './queries';
 
 const FeedList = ({ changeState }) => {
@@ -31,7 +28,7 @@ const FeedList = ({ changeState }) => {
                 {posts.map((post) => (
                     <div key={post.id} className={`post ${post.id < 0 ? 'optimistic' : ''}`}>
                         <div className="header">
-                            <img src={`${process.env.REACT_APP_BACKEND_URL}${post.user.avatar}`} alt={`${post.user.username}"s avatar`} />
+                            <img src={`${process.env.REACT_APP_BACKEND_URL}${post.user.avatar}`} alt={`${post.user.username}'s avatar`} />
                             <h2>{post.user.username}</h2>
                             <Dropdown trigger={<FontAwesomeIcon icon="angle-down" />}>
                                 <button onClick={changeState}>Edit</button>

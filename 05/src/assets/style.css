@@ -1,3 +1,4 @@
+/* General Styles */
 body {
   background-color: #f6f7f9;
   margin: 0;
@@ -12,22 +13,29 @@ body {
 p {
   margin-bottom: 0;
 }
+
 .container {
   max-width: 500px;
   margin: 50px auto 0 auto;
 }
+
+/* Feed and Post Styles */
 .feed {
   background-color: #bbb;
   padding: 3px;
   margin-top: 20px;
 }
+
 .post {
   background-color: #fff;
   margin: 5px;
+  position: relative; /* Ensure post content is positioned correctly */
 }
+
 .post .header {
   height: 60px;
 }
+
 .post .header > *,
 .chats .chat .header > * {
   display: inline-block;
@@ -40,24 +48,30 @@ p {
   height: 50px;
   margin: 5px;
 }
+
 .post .header h2 {
   color: #333;
   font-size: 24px;
   margin: 0 0 0 5px;
 }
+
 .post p.content {
   margin: 5px;
   padding: 5px;
   min-height: 50px;
 }
+
+/* Form Styles */
 form {
   padding-bottom: 20px;
 }
+
 form textarea {
   width: calc(100% - 20px);
   padding: 10px;
   border-color: #bbb;
 }
+
 form [type="submit"] {
   border: none;
   background-color: #6ca6fd;
@@ -68,6 +82,7 @@ form [type="submit"] {
   float: right;
 }
 
+/* Optimistic Animation */
 .optimistic {
   -webkit-animation: scale-up 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
   animation: scale-up 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
@@ -95,6 +110,7 @@ form [type="submit"] {
   }
 }
 
+/* Users List */
 .users {
   background-color: #eee;
   width: 200px;
@@ -105,6 +121,7 @@ form [type="submit"] {
   border-left: 1px solid #c3c3c3;
 }
 
+/* Chats Styles */
 .chats .chat {
   cursor: pointer;
 }
@@ -127,6 +144,7 @@ form [type="submit"] {
   font-size: 12px;
 }
 
+/* Chat Window Styles */
 .chatWindow {
   width: 250px;
   float: right;
@@ -181,12 +199,14 @@ form [type="submit"] {
   color: #000;
 }
 
+/* Open Chats */
 .openChats {
   position: fixed;
   right: 0;
   bottom: 0;
 }
 
+/* Chat Input Styles */
 .chatWindow .input input {
   width: calc(100% - 4px);
   border: none;
@@ -197,37 +217,41 @@ form [type="submit"] {
   outline: none;
 }
 
+/* Bouncer Animation */
 .bouncer {
-    margin: 20px auto;
-    border-radius: 100%; 
-    -webkit-animation: bounce 1.0s infinite ease-in-out;
-    animation: bounce 1.0s infinite ease-in-out;
-}
-  
-@-webkit-keyframes bounce {
-    0% {
-        -webkit-transform: scale(0)
-    }
-    100% {
-        -webkit-transform: scale(1.0);
-        opacity: 0;
-    }
-}
-  
-@keyframes bounce {
-    0% { 
-        -webkit-transform: scale(0);
-        transform: scale(0);
-    }
-    100% {
-        -webkit-transform: scale(1.0);
-        transform: scale(1.0);
-        opacity: 0;
-    }
+  margin: 20px auto;
+  border-radius: 100%;
+  -webkit-animation: bounce 1.0s infinite ease-in-out;
+  animation: bounce 1.0s infinite ease-in-out;
 }
 
+@-webkit-keyframes bounce {
+  0% {
+    -webkit-transform: scale(0);
+  }
+  100% {
+    -webkit-transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+@keyframes bounce {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  100% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+/* Dropdown Styles */
 .dropdown {
     position: relative; /* Ensures content is positioned relative to this container */
+    display: inline-block;
+    z-index: 1; /* Lower z-index to ensure it's not on top of everything */
 }
 
 .dropdown .content {
@@ -238,95 +262,105 @@ form [type="submit"] {
     background: white; /* Background color */
     border: 1px solid #ccc; /* Optional border */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Optional shadow for better visibility */
-    display: block;
+    display: none; /* Initially hidden */
+}
+
+.dropdown .content.show {
+    display: block; /* Display content when .show class is added */
 }
 
 .trigger {
     cursor: pointer;
+    z-index: 2; /* Ensure it's on top of the dropdown content */
 }
 
+
+/* Topbar Styles */
 .topbar {
-    width: 100%;
-    height: 60px; /* Height of the topbar */
-    background-color: #333;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    padding: 0 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 60px; /* Height of the topbar */
+  background-color: #333;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 0 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.container {
-}
+.container {}
 
 .column {
-    padding: 10px;
+  padding: 10px;
 }
 
-.center-column {
-}
+.center-column {}
 
 .right-column {
-    top: 60px; /* Position it below the topbar */
-    right: 0;
-    position: fixed;
-    height: calc(100vh - 60px); /* Full height minus the topbar height */
-    overflow-y: auto; /* Allow scrolling if content overflows */
+  top: 60px; /* Position it below the topbar */
+  right: 0;
+  position: fixed;
+  height: calc(100vh - 60px); /* Full height minus the topbar height */
+  overflow-y: auto; /* Allow scrolling if content overflows */
 }
 
 .topbar .search .result {
-    width: calc(100% - 2px);
-    border: 1px solid #c3c3c3;
-    margin-top: 1px;
+    z-index: 1000;
+    position: relative;
+}
+
+.topbar .search .result {
+  width: calc(100% - 2px);
+  border: 1px solid #c3c3c3;
+  margin-top: 1px;
 }
 
 .topbar .search .result .user {
-    position: relative;
-    height: 50px;
-    width: 100%;
-    background-color: #fff;
+  position: relative;
+  height: 50px;
+  width: 100%;
+  background-color: #fff;
 }
 
 .topbar .inner .user img {
-    height: calc(100% - 10px);
-    margin: 5px;
-    border: none;
-    min-width: 40px;
-    background-color: #ccc;
+  height: calc(100% - 10px);
+  margin: 5px;
+  border: none;
+  min-width: 40px;
+  background-color: #ccc;
 }
 
 .topbar .inner .user > * {
-    display: inline-block;
-    vertical-align: middle;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .inner {
-    width: 800px;
-    height: 100%;
+  width: 800px;
+  height: 100%;
 }
 
 .topbar .inner .search {
-    height: calc(100% - 20px);
-    padding: 10px;
-    width: 50%;
-    display: inline-block;
-    vertical-align: middle;
+  height: calc(100% - 20px);
+  padding: 10px;
+  width: 50%;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .topbar .inner .search input {
-    border: none;
-    height: 100%;
-    padding: 0;
-    width: 100%;
-    outline: none;
+  border: none;
+  height: 100%;
+  padding: 0;
+  width: 100%;
+  outline: none;
 }
 
 .topbar .inner .user {
-    position: absolute;
-    right: 0;
-    display: inline-block;
-    height: 100%;
-    color: black;
+  position: absolute;
+  right: 0;
+  display: inline-block;
+  height: 100%;
+  color: black;
 }

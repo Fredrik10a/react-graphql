@@ -50,11 +50,9 @@ const Dropdown = ({ trigger, children }) => {
             >
                 {trigger}
             </div>
-            {show && (
-                <div ref={contentRef} className="content" role="menu" aria-hidden={!show}>
-                    {children}
-                </div>
-            )}
+            <div ref={contentRef} className={`content ${show ? 'show' : ''}`} role="menu" aria-hidden={!show}>
+                {children}
+            </div>
         </div>
     );
 };
