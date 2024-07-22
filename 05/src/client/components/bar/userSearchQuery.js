@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { SEARCH_USERS } from './queries.js';
+import { SEARCH_USERS } from '../queries.js';
 
 const UserSearchQuery = ({ text, children }) => {
     const { loading, error, data } = useQuery(SEARCH_USERS, {
