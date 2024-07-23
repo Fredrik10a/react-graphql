@@ -1,0 +1,359 @@
+/* General Styles */
+body {
+  background-color: #f6f7f9;
+  margin: 0;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.root {
+  display: flex !important;
+  height: 100vh;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+.container {
+  max-width: 500px;
+  margin: 50px auto 0 auto;
+}
+
+/* Feed and Post Styles */
+.feed {
+  background-color: #bbb;
+  padding: 3px;
+  margin-top: 20px;
+}
+
+.post {
+  background-color: #fff;
+  margin: 5px;
+  position: relative; /* Ensure post content is positioned correctly */
+}
+
+.post .header {
+  height: 60px;
+}
+
+.post .header > *,
+.chats .chat .header > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.post .header img,
+.chats .chat .header img,
+.topbar .inner .user img {
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+}
+
+.post .header h2 {
+  color: #333;
+  font-size: 24px;
+  margin: 0 0 0 5px;
+}
+
+.post p.content {
+  margin: 5px;
+  padding: 5px;
+  min-height: 50px;
+}
+
+/* Form Styles */
+form {
+  padding-bottom: 20px;
+}
+
+form textarea {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border-color: #bbb;
+}
+
+form [type="submit"] {
+  border: none;
+  background-color: #6ca6fd;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  float: right;
+}
+
+/* Optimistic Animation */
+.optimistic {
+  -webkit-animation: scale-up 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  animation: scale-up 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+
+@-webkit-keyframes scale-up {
+  0% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes scale-up {
+  0% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+/* Users List */
+.users {
+  background-color: #eee;
+  width: 200px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-left: 1px solid #c3c3c3;
+}
+
+/* Chats Styles */
+.chats .chat {
+  cursor: pointer;
+}
+
+.chats .chat .header > div {
+  width: calc(100% - 65px);
+  font-size: 16px;
+  margin-left: 5px;
+}
+
+.chats .chat .header h2,
+.chats .chat .header span {
+  color: #333;
+  font-size: 16px;
+  margin: 0;
+}
+
+.chats .chat .header span {
+  color: #333;
+  font-size: 12px;
+}
+
+/* Chat Window Styles */
+.chatWindow {
+  width: 250px;
+  float: right;
+  background-color: #eee;
+  height: 300px;
+  margin-right: 10px;
+  border-left: 1px solid #c3c3c3;
+  border-right: 1px solid #c3c3c3;
+}
+
+.chatWindow .header {
+  width: calc(100% - 10px);
+  background-color: #c3c3c3;
+  padding: 5px;
+  height: 20px;
+}
+
+.chatWindow .header .close {
+  float: right;
+  border: none;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.chatWindow .header .close:focus {
+  outline: none;
+}
+
+.chatWindow .messages {
+  overflow-y: scroll;
+  height: calc(100% - 50px);
+}
+
+.chatWindow .messages .message {
+  width: 80%;
+  border: 1px solid #4079f3;
+  margin: 2px;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+.chatWindow .messages .message.left {
+  background-color: #78a3ff;
+  color: #fff;
+  float: left;
+}
+
+.chatWindow .messages .message.right {
+  float: right;
+  background-color: #e8f4fb;
+  color: #000;
+}
+
+/* Open Chats */
+.openChats {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+}
+
+/* Chat Input Styles */
+.chatWindow .input input {
+  width: calc(100% - 4px);
+  border: none;
+  padding: 2px;
+}
+
+.chatWindow .input input:focus {
+  outline: none;
+}
+
+/* Bouncer Animation */
+.bouncer {
+  margin: 20px auto;
+  border-radius: 100%;
+  -webkit-animation: bounce 1.0s infinite ease-in-out;
+  animation: bounce 1.0s infinite ease-in-out;
+}
+
+@-webkit-keyframes bounce {
+  0% {
+    -webkit-transform: scale(0);
+  }
+  100% {
+    -webkit-transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+@keyframes bounce {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  100% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+/* Dropdown Styles */
+.dropdown {
+    position: relative; /* Ensures content is positioned relative to this container */
+    display: inline-block;
+    z-index: 1; /* Lower z-index to ensure it's not on top of everything */
+}
+
+.dropdown .content {
+    position: absolute; /* Position the content absolutely */
+    top: 100%; /* Position below the trigger */
+    left: 0;
+    z-index: 1000; /* Ensure it appears above other elements */
+    background: white; /* Background color */
+    border: 1px solid #ccc; /* Optional border */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Optional shadow for better visibility */
+    display: none; /* Initially hidden */
+}
+
+.dropdown .content.show {
+    display: block; /* Display content when .show class is added */
+}
+
+.trigger {
+    cursor: pointer;
+    z-index: 2; /* Ensure it's on top of the dropdown content */
+}
+
+
+/* Topbar Styles */
+.topbar {
+  width: 100%;
+  height: 60px; /* Height of the topbar */
+  background-color: #333;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 0 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.container {}
+
+.column {
+  padding: 10px;
+}
+
+.center-column {}
+
+.right-column {
+  top: 60px; /* Position it below the topbar */
+  right: 0;
+  position: fixed;
+  height: calc(100vh - 60px); /* Full height minus the topbar height */
+  overflow-y: auto; /* Allow scrolling if content overflows */
+}
+
+.topbar .search .result {
+    z-index: 1000;
+    position: relative;
+}
+
+.topbar .search .result {
+  width: calc(100% - 2px);
+  border: 1px solid #c3c3c3;
+  margin-top: 1px;
+}
+
+.topbar .search .result .user {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  background-color: #fff;
+}
+
+.topbar .inner .user > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.inner {
+  width: 800px;
+  height: 100%;
+}
+
+.topbar .inner .search {
+  height: calc(100% - 20px);
+  padding: 10px;
+  width: 50%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.topbar .inner .search input {
+  border: none;
+  height: 100%;
+  padding: 0;
+  width: 100%;
+  outline: none;
+}
+
+.topbar .inner .user {
+  position: absolute;
+  right: 0;
+  display: inline-block;
+  height: 100%;
+  color: black;
+}
