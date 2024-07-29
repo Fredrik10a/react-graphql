@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserContext } from './userProvider';
+import { UserContext } from './UserProvider';
 
 const UserConsumer = ({ children }) => {
     return (
