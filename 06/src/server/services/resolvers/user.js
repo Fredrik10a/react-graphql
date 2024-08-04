@@ -64,7 +64,8 @@ const userResolvers = {
                 throw new Error('Failed to register user');
             }
         },
-        async login(_, { email, password }) {
+        async login(_, { email, password }, { res }) {
+            console.log('Logging in:', email);
             const user = await User.findOne({ email });
 
             if (!user) {
@@ -77,12 +78,18 @@ const userResolvers = {
             }
 */
             const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
-            return {
-                token,
-                user,
-            };
+
+            // Set the cookie with HttpOnly and Secure flags
+            res.cookie('token', token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+                maxAge: 3600000, // 1 hour
+                sameSite: 'strict', // CSRF protection
+            });
+
+            return { token, user };
         },
-    }
+    },
 };
 
 export default userResolvers;

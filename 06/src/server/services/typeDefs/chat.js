@@ -33,7 +33,7 @@ const chat = gql`
     }
 
     extend type Query {
-        chats: [Chat]
+        chats: [Chat] @auth
         chat(id: ID): Chat
     }
 `;

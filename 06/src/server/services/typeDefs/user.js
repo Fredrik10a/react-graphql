@@ -18,13 +18,13 @@ const user = gql`
     }
 
     extend type Query {
-        users: [User]
+        users: [User] @auth
         userSearch(page: Int, limit: Int, text: String): UserSearch
         myUser: User
     }
 
-    type Mutation {
-        register(username: String!, email: String!, password: String!): String
+    extend type Mutation {
+        register(username: String!, email: String!, password: String!): AuthPayload
         login(email: String!, password: String!): AuthPayload
     }
 `;
