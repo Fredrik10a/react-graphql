@@ -2,9 +2,9 @@ import { Chat } from '../../models/index.js';
 
 const chatResolvers = {
     Query: {
-        async chats() {
+        async chats(_, args, { user }) {
             try {
-                const chats = await Chat.find()
+                const chats = await Chat.find({ users: user.id })
                     .populate({
                         path: 'users',
                         select: 'username avatar',

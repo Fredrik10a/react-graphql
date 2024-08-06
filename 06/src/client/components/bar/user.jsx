@@ -26,6 +26,7 @@ const UserBar = ({ user }) => {
             {dropdownVisible && (
                 <div className="dropdown-menu">
                     <ul>
+                        <li># {user.user.username} #</li>
                         <li>Profile</li>
                         <li>Settings</li>
                         <li>
